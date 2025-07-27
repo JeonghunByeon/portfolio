@@ -57,10 +57,11 @@ section {
 }
 
 img {
-  display: block;
-  max-width: 100%;
+    display: block;        
+    margin: 0 auto;        
+    max-width: 100%;       
+    height: auto;
 }
-
 strong {
   font-weight: var(--fw-bold);
 }
@@ -549,4 +550,22 @@ header {
   aspect-ratio: 4 / 3; /* Maintain aspect ratio */
   margin: 0 auto; /* Centering */
   border: none;
+}
+
+ 
+/* About Vigor / Features 섹션 */
+.info-section {
+  display: flex;
+  flex-wrap: wrap;       /* 반응형: 화면이 좁아지면 줄바꿈 */
+  max-width: 1200px;
+  margin: 0 auto;        /* 중앙 정렬 */
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.responsive-video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
 }

@@ -32,7 +32,7 @@
     <header>
         <div class="logo">
             <!-- alt text can be blank since the logo is purely decorative and putting something like logo isn't actually helpful -->
-            <img src="../img/cout.jpg" alt="">
+            <!-- <img src="../img/cout.jpg" alt=""> -->
         </div>
         <button class="nav-toggle" aria-label="toggle navigation">
             <span class="hamburger"></span>
@@ -61,37 +61,45 @@
     <!-- Introduction -->
     <section class="intro">
         <h1 class="section__title section__title--intro">
-            Project <strong>Hello Quad</strong>
+            Project <strong>The Last Track</strong>
         </h1>
-        <p class="section__subtitle section__subtitle--intro">3D Graphics</p>
-        <img src="../img/portfolio_thumbnails/01_hello.jpg" alt="a picture of this portfolio item" class="intro__img">
+        <p class="section__subtitle section__subtitle--intro">2D pixel graphics</p>
+        <img src="../img/portfolio_thumbnails/The Last Track.png" alt="a picture of this portfolio item" class="intro__img">
     </section>
 
     <div class="portfolio-item-individual">
         <h2>Project Overview</h2>
-        <p>Provide a brief description of the project, its purpose, and what you aimed to achieve.</p>
-
+        <p>The Last Track 은 방탈출 형식의 퍼즐 추리게임으로, 탑승객이 각 칸마다의 기믹을 풀어가며 통제실에 도달하여 기차의 문제 상황을 해결해나가는 게임입니다. 
+ 
+        
         <h2>Tasks Completed</h2>
         <ul>
-            <li>Describe the tasks you completed for this project.</li>
-            <li>Be specific about your contributions and the technologies used.</li>
-        </ul>
+            <h3>게임 시스템 개발</h3>
+             <ul>
+                <li>GameStateManager를 통한 각 열차 칸의 분배와 이동 괸리</li>
+                <li>좌표와 위치 계산을 통해 상호작용 가능한 거리 계산 함수 구현</li>
+            </ul>
 
-        <h2>Reflection</h2>
-        <p>Reflect on the project, discussing any challenges faced, solutions implemented, and what you learned from the
-            experience.</p>
+            <h3>그래픽 및 에니메이션</h3>
+             <ul>
+                <li>화면 전환 구현.</li>
+                <li>Parallax Background 구현.</li>
+            </ul>
+    
     </div>
-
-    <div class="portfolio-item-individual">
-        <h2>Demo</h2>
-        <!-- TODO demo the webgl version of the project -->
-        <iframe id="demo" src="../webgl/D01HelloQuad/graphics_fun.html"></iframe>
-    </div>
+          <div class="info-section">
+            <video class="responsive-video" controls>
+              <source src="../img/portfolio_thumbnails/The Last Track.mp4" type="video/mp4">
+              브라우저가 video 태그를 지원하지 않습니다.
+            </video>
+            보스전 프로토타입
+          </div>
+   
 
 
     <!-- Footer -->
     <footer class="footer">
-        <a href="mailto:my.email@digipen.edu" class="footer__link">my.email@digipen.edu</a>
+        <a href="mailto:byeonjeonghun93@gmail.com" class="footer__link">byeonjeonghun93@gmail.com</a>
         <ul class="social-list">
             <li class="social-list__item">
                 <a class="social-list__link" href="https://linkedin.com/in/mylinkedinid">

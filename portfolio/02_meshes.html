@@ -10,7 +10,6 @@
 
     <!-- Help auto scale for desktop & mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>STUDENT TODO Website</title>
 
     <!-- Normalize the difference across browsers  https://necolas.github.io/normalize.css/ -->
@@ -33,7 +32,7 @@
     <header>
         <div class="logo">
             <!-- alt text can be blank since the logo is purely decorative and putting something like logo isn't actually helpful -->
-            <img src="../img/cout.jpg" alt="">
+            <!-- <img src="../img/cout.jpg" alt=""> -->
         </div>
         <button class="nav-toggle" aria-label="toggle navigation">
             <span class="hamburger"></span>
@@ -61,33 +60,53 @@
 
     <!-- Introduction -->
     <section class="intro">
-        <!-- TODO put the name of the assignment here -->
         <h1 class="section__title section__title--intro">
-            Project <strong>Procedural Geometric Modeling</strong>
+            Project <strong>Beast Crossing</strong>
         </h1>
-        <p class="section__subtitle section__subtitle--intro">3D Graphics</p>
-        <img src="../img/portfolio_thumbnails/02_meshes.jpg" alt="a picture of this portfolio item" class="intro__img">
+        <p class="section__subtitle section__subtitle--intro">2D graphics</p>
+        <img src="../img/portfolio_thumbnails/BeastCrossing.png" alt="a picture of this portfolio item" class="intro__img">
     </section>
 
     <div class="portfolio-item-individual">
         <h2>Project Overview</h2>
-        <p>Provide a brief description of the project, its purpose, and what you aimed to achieve.</p>
-
+        <p>Beast Crossing 은 턴제 전략 게임으로 2명의 플레이어가 다람쥐, 뱀, 새 종족의 장군이 되어 전략적으로 땅을 점령하고 상대를 몰아내는 게임입니다.<div class=""></div>
+        
         <h2>Tasks Completed</h2>
         <ul>
-            <li>Describe the tasks you completed for this project.</li>
-            <li>Be specific about your contributions and the technologies used.</li>
-        </ul>
-
+            <h3>게임 시스템 개발</h3>
+             <ul>
+                <li>타일 이동 가능 구현 계산 장군의 이동</li>
+                <li>플레이어 시야 재한(fog of war)</li>
+                <li> TurnManager을 활용해 턴 시스템 구현</li>
+            </ul>
+            
+            <h3>그래픽 및 에니메이션</h3>
+             <ul>
+                <li>육각형 타일맵 각도 조절 및 배치</li>
+            </ul>
+            
+            <h3>프로젝트 관리</h3>
+             <ul>
+                <li>업무 분배 및 프로젝트 분략 조절</li>
+            </ul>
+          <div class="portfolio-item-individual">
+        </ul>  
+        
+        <div class="info-section">
+            <video class="responsive-video" controls>
+              <source src="../img/portfolio_thumbnails/The Last Track.mp4" type="video/mp4">
+              브라우저가 video 태그를 지원하지 않습니다.
+            </video>
+            보스전 프로토타입
+          </div>
+        <!-- </ul>
         <h2>Reflection</h2>
         <p>Reflect on the project, discussing any challenges faced, solutions implemented, and what you learned from the
-            experience.</p>
+            experience.</p> -->
     </div>
 
-    <div class="portfolio-item-individual">
-        <h2>Demo</h2>
-        <iframe id="demo" src="../webgl/D02ProceduralMeshes/graphics_fun.html?start=meshes" tabindex="-1"></iframe>
-    </div>
+   
+
 
     <!-- Footer -->
     <footer class="footer">
