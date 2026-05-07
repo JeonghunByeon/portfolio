@@ -10,7 +10,7 @@
 
     <!-- Help auto scale for desktop & mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STUDENT TODO Website</title>
+    <title>Beast Crossing</title>
 
     <!-- Normalize the difference across browsers  https://necolas.github.io/normalize.css/ -->
     <link rel="stylesheet" href="../external/normalize.css">
@@ -60,50 +60,53 @@
 
     <!-- Introduction -->
     <section class="intro">
-        <h1 class="section__title section__title--intro">
-            Project <strong>Beast Crossing</strong>
-        </h1>
-        <p class="section__subtitle section__subtitle--intro">2D graphics</p>
-        <img src="../img/portfolio_thumbnails/BeastCrossing.png" alt="a picture of this portfolio item" class="intro__img">
-    </section>
+    <h1 class="section__title section__title--intro">
+        Project <strong>Beast Crossing</strong>
+    </h1>
+    <p class="section__subtitle section__subtitle--intro">Turn-Based Strategy / Hex-Grid</p>
+    <img src="../img/portfolio_thumbnails/BeastCrossing.png" alt="Beast Crossing Screenshot" class="intro__img">
+</section>
 
-    <div class="portfolio-item-individual">
-        <h2>Project Overview</h2>
-        <p>Beast Crossing 은 턴제 전략 게임으로 2명의 플레이어가 다람쥐, 뱀, 새 종족의 장군이 되어 전략적으로 땅을 점령하고 상대를 몰아내는 게임입니다.<div class=""></div>
-        
-        <h2>Tasks Completed</h2>
-        <ul>
-            <h3>게임 시스템 개발</h3>
-             <ul>
-                <li>타일 이동 가능 구현 계산 장군의 이동</li>
-                <li>플레이어 시야 재한(fog of war)</li>
-                <li> TurnManager을 활용해 턴 시스템 구현</li>
-            </ul>
-            
-            <h3>그래픽 및 에니메이션</h3>
-             <ul>
-                <li>육각형 타일맵 각도 조절 및 배치</li>
-            </ul>
-            
-            <h3>프로젝트 관리</h3>
-             <ul>
-                <li>업무 분배 및 프로젝트 분략 조절</li>
-            </ul>
-          <div class="portfolio-item-individual">
-        </ul>  
-        
-        <div class="info-section">
-            <video class="responsive-video" controls>
-              <source src="../img/portfolio_thumbnails/BeastCrossing.mp4" type="video/mp4">
-              브라우저가 video 태그를 지원하지 않습니다.
-            </video>
-            실제 게임 플레이 상황(갓 모드 사용)
-          </div>
-        <!-- </ul>
-        <h2>Reflection</h2>
-        <p>Reflect on the project, discussing any challenges faced, solutions implemented, and what you learned from the
-            experience.</p> -->
+<div class="portfolio-item-individual">
+    <div class="item-section">
+        <h2><i class="fas fa-chess-board"></i> Project Overview</h2>
+        <p><strong>Beast Crossing</strong> is a competitive turn-based strategy game where two players command generals from the Squirrel, Snake, and Bird tribes. Players must strategically occupy territories and eliminate opponents through tactical movement and resource management on a hexagonal grid.</p>
     </div>
+
+    <div class="item-section">
+        <h2><i class="fas fa-terminal"></i> Technical Contributions</h2>
+        
+        <div class="task-grid">
+            <div class="task-card">
+                <h3><i class="fas fa-gears"></i> Core Mechanics</h3>
+                <ul>
+                    <li><strong>Turn Management</strong>: Engineered a robust <strong>TurnManager</strong> system to handle complex turn cycles and player actions.</li>
+                    <li><strong>Fog of War</strong>: Implemented a visibility system to restrict player's vision, adding tactical depth and exploration.</li>
+                    <li><strong>Pathfinding</strong>: Developed hexagonal tile movement logic and reachability calculations for unit navigation.</li>
+                </ul>
+            </div>
+
+            <div class="task-card">
+                <h3><i class="fas fa-vial"></i> Graphics & Leadership</h3>
+                <ul>
+                    <li><strong>Hex-Tile System</strong>: Designed and implemented a mathematically precise hexagonal coordinate system and asset placement.</li>
+                    <li><strong>Project Management</strong>: Acted as the lead, managing task distribution and adjusting project scope to ensure timely delivery.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="item-section">
+        <h2><i class="fas fa-gamepad"></i> Gameplay Demonstration</h2>
+        <div class="video-container">
+            <video class="responsive-video" controls>
+                <source src="../img/portfolio_thumbnails/BeastCrossing.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p class="video-caption">In-game play demonstration (Recorded in God Mode for full visibility)</p>
+        </div>
+    </div>
+</div>
 
    
 

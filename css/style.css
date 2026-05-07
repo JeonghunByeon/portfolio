@@ -14,17 +14,18 @@
   --fw-reg: 300;
   --fw-bold: 900;
 
-  --clr-light: #ffffff;
-  --clr-dark: #303030;
-  --clr-accent: #16e0bd;
+  /* ★ 새로운 색상 팔레트 ★ */
+  --clr-light: #ffffff; /* 순수한 흰색 */
+  --clr-dark: #003366; /* 어두운 파란색 (글자색용) */
+  --clr-accent: #00A3FF; /* 빛나는 전기 파란색 (포인트색용) */
 
   --fs-h1: 3rem;
   --fs-h2: 2.25rem;
   --fs-h3: 1.25rem;
   --fs-body: 1rem;
 
-  --bs: 0.25em 0.25em 0.75em rgba(0, 0, 0, 0.25),
-    0.125em 0.125em 0.25em rgba(0, 0, 0, 0.15);
+  --bs: 0.25em 0.25em 0.75em rgba(0, 0, 0, 0.05), /* 더 부드러운 그림자 */
+    0.125em 0.125em 0.25em rgba(0, 0, 0, 0.03);
 }
 
 /* With wider screens use differnt/bigger numbers */
@@ -44,8 +45,8 @@ html {
 }
 
 body {
-  background: var(--clr-light);
-  color: var(--clr-dark);
+  background: var(--clr-light); /* 흰색 배경 유지 */
+  color: var(--clr-dark); /* 어두운 파란색 글자색 */
   margin: 0;
   font-family: var(--ff-primary);
   font-size: var(--fs-body);
@@ -57,13 +58,14 @@ section {
 }
 
 img {
-    display: block;        
-    margin: 0 auto;        
-    max-width: 100%;       
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
     height: auto;
 }
 strong {
   font-weight: var(--fw-bold);
+  color: var(--clr-accent); /* strong 태그는 자동으로 포인트 색상 적용 */
 }
 
 :focus {
@@ -74,19 +76,21 @@ strong {
 .btn {
   display: inline-block;
   padding: 0.5em 2.5em;
-  background: var(--clr-accent);
-  color: var(--clr-dark);
+  background: var(--clr-accent); /* 포인트 색상 버튼 */
+  color: #ffffff; /* 버튼 글자색은 흰색 */
   text-decoration: none;
   cursor: pointer;
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: var(--fw-bold);
-  transition: transform 200ms ease-in-out;
+  transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+  border-radius: 5px; /* 부드러운 버튼 테두리 */
 }
 
 .btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
+  box-shadow: 0px 5px 15px rgba(0, 163, 255, 0.3); /* 파란색 네온 효과 추가 */
 }
 
 /* Typography */
@@ -96,6 +100,7 @@ h2,
 h3 {
   line-height: 1;
   margin: 0;
+  color: var(--clr-dark); /* 모든 제목은 어두운 파란색 */
 }
 
 h1 {
@@ -118,25 +123,30 @@ h3 {
   font-weight: var(--fw-reg);
 }
 
-.section__title--intro strong {
+/* Typography 수정 사항 - strong 태그 color 제거 (strong에 이미 color 설정됨) */
+/* .section__title--intro strong {
   display: block;
-}
+  color: var(--clr-accent);
+} */
 
 .section__subtitle {
   margin: 0;
   font-size: var(--fs-h3);
 }
 
+/* 민트색 바 스타일 수정 */
 .section__subtitle--intro,
 .section__subtitle--about {
-  background: var(--clr-accent);
+  background: rgba(0, 163, 255, 0.1); /* 투명한 파란색 배경으로 변경 */
+  color: var(--clr-accent); /* 포인트 색상 글자 */
   padding: 0.25em 1em;
   font-family: var(--ff-secondary);
   margin-bottom: 1em;
+  border-left: 3px solid var(--clr-accent); /* 왼쪽에 미세한 파란색 선 추가 */
 }
 
 .section__subtitle--projects {
-  color: var(--clr-accent);
+  color: var(--clr-accent); /* 포인트 색상 글자 */
   font-weight: var(--fw-bold);
   margin-bottom: 1em;
 }
@@ -146,6 +156,7 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 1em;
+  border-bottom: 1px solid rgba(0, 163, 255, 0.1); /* 미세한 파란색 하단 테두리 추가 */
 }
 .logo {
   max-width: 528px;
@@ -153,8 +164,8 @@ header {
 
 .nav {
   position: fixed;
-  background: var(--clr-dark);
-  color: var(--clr-light);
+  background: var(--clr-light); /* 흰색 배경으로 변경 */
+  color: var(--clr-dark); /* 어두운 파란색 글자색 */
   top: 0;
   bottom: 0;
   left: 0;
@@ -226,7 +237,7 @@ header {
 .hamburger,
 .hamburger::before,
 .hamburger::after {
-  background: var(--clr-accent);
+  background: var(--clr-accent); /* 햄버거 메뉴는 포인트 색상 */
   width: 2em;
   height: 3px;
   border-radius: 1em;
@@ -246,6 +257,21 @@ header {
 }
 .hamburger::after {
   bottom: 6px;
+}
+
+/* 언어 토글 (이전 대화 기반 추가 및 수정) */
+.lang-toggle {
+    background: #ffffff; /* 흰색 배경으로 변경 */
+    border: 2px solid var(--clr-accent); /* 파란색 테두리 */
+}
+.lang-toggle.en-active .lang-ball {
+    transform: translateX(28px);
+}
+.lang-toggle .ko {
+    color: var(--clr-dark); /* 한국어는 어두운 파란색 */
+}
+.lang-toggle .en {
+    color: var(--clr-accent); /* 영어는 포인트 색상 */
 }
 
 /* Intro Section */
@@ -281,16 +307,18 @@ header {
   display: inline-block;
 }
 
+/* 인트로 섹션 레이아웃 수정 - 이전 대화 기반 유지하되 색상 변경 */
 @media (min-width: 600px) {
   .intro {
     display: grid;
-    width: min-content;
+    width: max-content;
     margin: 0 auto;
-    column-gap: 1em;
+    column-gap: 2em;
     grid-template-areas:
       "img title"
       "img subtitle";
     grid-template-columns: min-content max-content;
+    align-items: center;
   }
 
   .intro__img {
@@ -300,30 +328,37 @@ header {
     z-index: 2;
   }
 
+  .section__title--intro {
+    grid-area: title;
+    align-self: end;
+  }
+
   .section__subtitle--intro {
+    grid-area: subtitle;
     align-self: start;
-    grid-column: -1/1;
-    grid-row: 2;
-    text-align: right;
+    margin: 0;
     position: relative;
     left: -1.5em;
     width: calc(100% + 1.5em);
+    white-space: nowrap;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
   }
 }
 
 /* my services section */
-
 .my-services {
-  background-color: var(--clr-dark);
-  background-image: url(../img/skills-bg.jpg);
-  background-size: cover;
-  background-blend-mode: overlay;
-  color: var(--clr-light);
+  background-color: var(--clr-light); /* 흰색 배경으로 변경 */
+  background-image: none; /* 배경 이미지 제거 */
+  background-blend-mode: normal; /* 블렌딩 모드 제거 */
+  color: var(--clr-dark); /* 어두운 파란색 글자색 */
   text-align: center;
 }
 
 .section__title--services {
-  color: var(--clr-accent);
+  color: var(--clr-accent); /* 포인트 색상 글자 */
   position: relative;
 }
 
@@ -333,8 +368,8 @@ header {
   width: 2em;
   height: 1px;
   margin: 0.5em auto 1em;
-  background: var(--clr-light);
-  opacity: 0.25;
+  background: var(--clr-dark); /* 흰색 배경 위에서는 어두운 색 선 */
+  opacity: 0.1;
 }
 
 .services {
@@ -405,8 +440,8 @@ header {
 /* Portfolio / My projects */
 
 .my-projects {
-  background-color: var(--clr-dark);
-  color: var(--clr-light);
+  background-color: var(--clr-light); /* 흰색 배경으로 변경 */
+  color: var(--clr-dark); /* 어두운 파란색 글자색 */
   text-align: center;
 }
 
@@ -418,12 +453,21 @@ header {
 }
 
 .portfolio__item {
-  background: var(--clr-dark);
+  background: var(--clr-light); /* 흰색 배경으로 변경 */
   overflow: hidden;
+  box-shadow: var(--bs);
+  border-radius: 5px;
+  margin: 0.5em;
+  transition: transform 250ms ease-in-out, box-shadow 250ms ease-in-out;
 }
 
 .portfolio__img {
   transition: transform 750ms cubic-bezier(0.5, 0, 0.5, 1), opacity 250ms linear;
+}
+
+.portfolio__item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 10px 20px rgba(0, 163, 255, 0.1);
 }
 
 .portfolio__item:focus {
@@ -433,8 +477,8 @@ header {
 
 .portfolio__img:hover,
 .portfolio__item:focus .portfolio__img {
-  transform: scale(1.2);
-  opacity: 0.75;
+  transform: scale(1.1);
+  opacity: 0.9;
 }
 
 /*--------------------------------------------------------------
@@ -452,14 +496,14 @@ header {
 }
 
 .resume-section h3 {
-  color: var(--clr-dark);
+  color: var(--clr-dark); /* 어두운 파란색 제목 */
   text-align: center;
 }
 
 .resume-section .resume-item {
   padding: 0 0 20px 20px;
   margin-top: -18px;
-  border-left: 2px solid var(--clr-accent);
+  border-left: 2px solid var(--clr-accent); /* 포인트 색상 선 */
   position: relative;
   max-width: 1000px;
 }
@@ -479,17 +523,18 @@ header {
   left: -9px;
   top: 0;
   background: var(--clr-light);
-  border: 2px solid var(--clr-accent);
+  border: 2px solid var(--clr-accent); /* 포인트 색상 원 테두리 */
 }
 
 /* Footer */
 
 .footer {
-  background: #111;
-  color: var(--clr-accent);
+  background: #ffffff; /* 흰색 배경으로 변경 */
+  color: var(--clr-accent); /* 포인트 색상 글자 */
   text-align: center;
   padding: 2.5em 0;
   font-size: var(--fs-h3);
+  border-top: 1px solid rgba(0, 163, 255, 0.1); /* 미세한 파란색 상단 테두리 추가 */
 }
 
 .footer a {
@@ -504,6 +549,7 @@ header {
 .footer__link:hover,
 .social-list__link:hover {
   opacity: 0.7;
+  color: var(--clr-accent);
 }
 
 .footer__link:hover {
@@ -524,48 +570,120 @@ header {
 
 .social-list__link {
   padding: 0.5em;
+  color: var(--clr-accent);
 }
 
-/* individual portfolio item styles */
+/* --- 상세 페이지 전용 스타일 --- */
 
 .portfolio-item-individual {
-  padding: 0 2em 2em;
-  max-width: 1200px;
-  margin: 0 auto;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4em 2em;
 }
 
-.portfolio-item-individual p,
-.portfolio-item-individual ul {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+.item-section {
+    margin-bottom: 5em;
 }
 
-.portfolio-item-individual iframe {
-  box-shadow: var(--bs);
-  display: block;
-  max-width: 1200px;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3; /* Maintain aspect ratio */
-  margin: 0 auto; /* Centering */
-  border: none;
+.item-section h2 {
+    color: var(--clr-accent);
+    margin-bottom: 1.5em;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 2rem;
 }
 
- 
-/* About Vigor / Features 섹션 */
-.info-section {
-  display: flex;
-  flex-wrap: wrap;       /* 반응형: 화면이 좁아지면 줄바꿈 */
-  max-width: 1200px;
-  margin: 0 auto;        /* 중앙 정렬 */
-  padding: 2rem;
-  gap: 2rem;
+.item-section h2 i {
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+
+/* 업무 카드 레이아웃 */
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.task-card {
+    background: rgba(0, 163, 255, 0.03); /* 아주 연한 파란색 배경 */
+    border: 1px solid rgba(0, 163, 255, 0.1);
+    padding: 2em;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 163, 255, 0.05);
+}
+
+.task-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1em;
+    color: var(--clr-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.task-card li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.task-card li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--clr-accent);
+}
+
+/* 비디오 컨테이너 */
+.video-container {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: var(--bs);
 }
 
 .responsive-video {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto;
+    width: 100%;
+    border-radius: 10px;
+    display: block;
 }
+
+.video-caption {
+    text-align: center;
+    margin-top: 15px;
+    font-family: var(--ff-secondary);
+    color: var(--clr-accent);
+    font-size: 0.9rem;
+}
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+    .item-section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* style.css에 추가 */
+.portfolio-item-individual p {
+    line-height: 1.8; /* 영어 문장의 가독성을 위해 줄간격을 조금 더 넓힘 */
+    letter-spacing: 0.02em;
+    color: var(--clr-dark);
+    opacity: 0.9; /* 너무 진한 검정보다 살짝 투명한 파란색 톤이 고급스러움 */
+}
+
+.task-card li {
+    font-size: 0.95rem; /* 리스트 텍스트가 너무 크면 카드가 답답해 보일 수 있음 */
+}
+
