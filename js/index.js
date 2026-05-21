@@ -31,38 +31,80 @@ document.addEventListener("DOMContentLoaded", function () {
 const langToggle = document.getElementById('lang-toggle');
 const langElements = document.querySelectorAll('.lang');
 
-langToggle.addEventListener('click', () => {
-    // 1. 알약 버튼 애니메이션 클래스 토글
-    langToggle.classList.toggle('en-active');
-    
-    // 2. 현재 상태가 영어인지 확인
-    const isEnglish = langToggle.classList.contains('en-active');
-    
-
-    document.body.classList.toggle('lang-en', isEnglish);
-
-    
-    // 3. 모든 .lang 요소를 순회하며 텍스트 변경
+function reserveLangWidths() {
     langElements.forEach(el => {
-        if (isEnglish) {
-            // 영어 모드일 때
-            const enText = el.getAttribute('data-en');
-            if (enText) el.textContent = enText;
-        } else {
-            // 한국어 모드일 때
-            const koText = el.getAttribute('data-ko');
-            if (koText) el.textContent = koText;
-        }
+        const ko = el.getAttribute('data-ko') || el.textContent || '';
+        const en = el.getAttribute('data-en') || el.textContent || '';
+        const meas = document.createElement('span');
+        meas.style.visibility = 'hidden';
+        meas.style.position = 'absolute';
+        meas.style.whiteSpace = 'nowrap';
+        meas.style.font = window.getComputedStyle(el).font;
+        meas.textContent = ko;
+        document.body.appendChild(meas);
+        const w1 = meas.offsetWidth;
+        meas.textContent = en;
+        const w2 = meas.offsetWidth;
+        document.body.removeChild(meas);
+        const max = Math.max(w1, w2);
+        el.style.display = 'inline-block';
+        // prevent reserved width from exceeding parent container (avoid pushing layout)
+        const parentW = el.parentElement ? el.parentElement.offsetWidth : el.offsetWidth;
+        const allowed = Math.max( Math.floor(parentW * 0.9), 40 );
+        const final = Math.min(Math.ceil(max), allowed);
+        el.style.minWidth = final + 'px';
+    });
+}
+
+if (langToggle) {
+    langToggle.addEventListener('click', () => {
+        langToggle.classList.toggle('en-active');
+        const isEnglish = langToggle.classList.contains('en-active');
+        langToggle.setAttribute('aria-pressed', isEnglish ? 'true' : 'false');
+        document.body.classList.toggle('lang-en', isEnglish);
+
+        langElements.forEach(el => {
+            if (isEnglish) {
+                const enText = el.getAttribute('data-en');
+                if (enText !== null) el.textContent = enText;
+            } else {
+                const koText = el.getAttribute('data-ko');
+                if (koText !== null) el.textContent = koText;
+            }
+        });
+
+        localStorage.setItem('selectedLanguage', isEnglish ? 'en' : 'ko');
     });
 
-    // (선택 사항) 로컬 스토리지에 저장하여 페이지 새로고침 시 유지
-    localStorage.setItem('selectedLanguage', isEnglish ? 'en' : 'ko');
+    // keyboard access (space/enter)
+    langToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            langToggle.click();
+        }
+    });
+}
+
+// 페이지 로드 시 초기화: 너비 고정 -> 저장된 언어 적용
+window.addEventListener('DOMContentLoaded', () => {
+    reserveLangWidths();
+    const savedLang = localStorage.getItem('selectedLanguage');
+    if (savedLang === 'en' && langToggle && !langToggle.classList.contains('en-active')) {
+        langToggle.classList.add('en-active');
+        langToggle.setAttribute('aria-pressed', 'true');
+        document.body.classList.add('lang-en');
+    }
+    // apply texts according to saved language
+    const isEnglish = document.body.classList.contains('lang-en');
+    langElements.forEach(el => {
+        const text = isEnglish ? el.getAttribute('data-en') : el.getAttribute('data-ko');
+        if (text !== null) el.textContent = text;
+    });
 });
 
-// 페이지 로드 시 기존 설정 불러오기
-window.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('selectedLanguage');
-    if (savedLang === 'en') {
-        langToggle.click(); // 저장된 언어가 영어라면 클릭 이벤트 강제 발생
-    }
+// recompute min-widths on resize (debounced)
+let _rt;
+window.addEventListener('resize', () => {
+    clearTimeout(_rt);
+    _rt = setTimeout(reserveLangWidths, 120);
 });

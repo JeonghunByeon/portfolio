@@ -187,6 +187,20 @@ header {
   padding: 0;
 }
 
+/* Make nav items centered regardless of label width (prevents shift when language changes) */
+.nav__list {
+  width: 100%;
+}
+.nav__item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.nav__link {
+  display: inline-block;
+  text-align: center;
+}
+
 .nav__link {
   color: inherit;
   font-weight: var(--fw-bold);
@@ -259,19 +273,67 @@ header {
   bottom: 6px;
 }
 
-/* 언어 토글 (이전 대화 기반 추가 및 수정) */
+/* Language toggle: top-center pill (fixed sizing for centered ball) */
 .lang-toggle {
-    background: #ffffff; /* 흰색 배경으로 변경 */
-    border: 2px solid var(--clr-accent); /* 파란색 테두리 */
+  --toggle-w: 120px;
+  --toggle-h: 44px;
+  --ball: 30px;
+  --toggle-pad: 8px; /* internal padding for ball */
+  --toggle-offset: 20px; /* larger offset -> ball sits further left inside pill */
+  width: var(--toggle-w);
+  height: var(--toggle-h);
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  cursor: pointer;
+  user-select: none;
+  border: 2px solid var(--clr-accent);
+}
+.lang-toggle:focus {
+  outline: 3px solid rgba(0,163,255,0.18);
+  outline-offset: 3px;
+}
+.lang-toggle .toggle-label { font-weight: 800; color: var(--clr-dark); font-size: 0.85rem; width: calc((var(--toggle-w) - var(--ball)) / 2); text-align: center; z-index: 2; }
+.lang-toggle .lang-ball {
+  position: absolute;
+  left: var(--toggle-pad);
+  top: calc((var(--toggle-h) - var(--ball)) / 2);
+  width: var(--ball);
+  height: var(--ball);
+  background: var(--clr-accent);
+  border-radius: 50%;
+  transition: transform 180ms cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 4px 10px rgba(0,163,255,0.14);
 }
 .lang-toggle.en-active .lang-ball {
-    transform: translateX(28px);
+  transform: translateX(calc(var(--toggle-w) - var(--ball) - var(--toggle-offset)));
 }
-.lang-toggle .ko {
-    color: var(--clr-dark); /* 한국어는 어두운 파란색 */
+
+/* Ensure language text containers reserve width to avoid reflow */
+.lang {
+  display: inline-block;
+  vertical-align: middle;
 }
-.lang-toggle .en {
-    color: var(--clr-accent); /* 영어는 포인트 색상 */
+
+/* Truncate short-nav labels to avoid overflow outside boxes */
+.lang.truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; max-width: 12rem; }
+@media (max-width: 520px) { .lang.truncate { max-width: 8.5rem; } }
+
+@media (max-width: 520px) {
+  .lang-toggle { transform: translateX(-50%) scale(0.95); top: 8px; }
+  .lang-toggle { --toggle-pad: 6px; --toggle-offset: 18px; transform: translateX(-50%) scale(0.95); top: 8px; }
+  .lang-toggle .lang-label { font-size: 0.75rem; }
+  .lang-toggle .lang-ball { width: 24px; height: 24px; }
+  .lang-toggle.en-active .lang-ball { transform: translateX(calc(var(--toggle-w) - var(--ball) - var(--toggle-offset))); }
 }
 
 /* Intro Section */
@@ -311,26 +373,30 @@ header {
 @media (min-width: 600px) {
   .intro {
     display: grid;
-    width: max-content;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     column-gap: 2em;
     grid-template-areas:
-      "img title"
-      "img subtitle";
-    grid-template-columns: min-content max-content;
+      "title img"
+      "subtitle img";
+    /* left column larger so long Korean text doesn't flow under the image */
+    grid-template-columns: minmax(420px, 1fr) minmax(240px, 360px);
     align-items: center;
   }
 
   .intro__img {
     grid-area: img;
-    min-width: 250px;
+    min-width: 240px;
+    max-width: 360px;
     position: relative;
-    z-index: 2;
+    z-index: 1; /* keep image under text */
   }
 
   .section__title--intro {
     grid-area: title;
     align-self: end;
+    z-index: 3;
   }
 
   .section__subtitle--intro {
@@ -338,13 +404,31 @@ header {
     align-self: start;
     margin: 0;
     position: relative;
-    left: -1.5em;
-    width: calc(100% + 1.5em);
-    white-space: nowrap;
+    width: 100%;
+    white-space: normal;
+    display: block;
+    text-align: left;
+    padding-right: 0; /* no fixed padding; grid column prevents overlap */
+    z-index: 3;
+  }
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+/* Mobile: stack image below text to avoid overlap */
+@media (max-width: 599px) {
+  .intro {
+    display: grid;
+    grid-template-areas:
+      "title"
+      "subtitle"
+      "img";
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .intro__img {
+    justify-self: center;
+    max-width: 340px;
+    width: 60%;
+    z-index: 1;
   }
 }
 
@@ -399,6 +483,7 @@ header {
 .about-me {
   max-width: 1000px;
   margin: 0 auto;
+  padding: 2.2em 1.5em; /* reduce vertical space for About section */
 }
 
 .about-me__img {
@@ -408,7 +493,7 @@ header {
 @media (min-width: 600px) {
   .about-me {
     display: grid;
-    grid-template-columns: 1fr 200px;
+    grid-template-columns: 1fr minmax(220px, 340px);
     grid-template-areas:
       "title img"
       "subtitle img"
@@ -416,24 +501,35 @@ header {
     column-gap: 2em;
   }
 
-  .section__title--about {
-    grid-area: title;
-  }
-
   .section__subtitle--about {
-    grid-column: 1 / -1;
+    grid-column: 1 / 2;
     grid-row: 2;
     position: relative;
-    left: -1em;
-    width: calc(100% + 2em);
-    padding-left: 1em;
-    padding-right: calc(200px + 2.5em);
+    left: 0;
+    width: auto;
+    /* make subtitle compact and inline-styled to reduce tall block */
+    display: inline-block;
+    padding: 0.6em 0.85em;
+    margin-bottom: 0.6em;
+    max-width: 70%;
+    line-height: 1.45;
+    font-size: 1.15rem;
+    background: rgba(0, 163, 255, 0.06);
+    border-left: 4px solid var(--clr-accent);
+    z-index: 3;
+  }
+    padding-left: 0.75em;
+    padding-right: 0.5em;
+    max-width: calc(100% - 360px);
+    z-index: 3;
   }
 
   .about-me__img {
     grid-area: img;
     position: relative;
-    z-index: 2;
+    z-index: 1;
+    max-width: 320px;
+    width: 100%;
   }
 }
 
@@ -450,6 +546,25 @@ header {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   max-width: 1200px;
   margin: 0 auto;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: start;
+  padding: 1rem 0;
+}
+
+/* Center titles/subtitles for Projects and About sections */
+.my-projects .section__title,
+.my-projects .section__subtitle,
+.about-me .section__title,
+.about-me .section__subtitle {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-me .section__title,
+.my-projects .section__title {
+  margin-bottom: 0.5rem;
 }
 
 .portfolio__item {
