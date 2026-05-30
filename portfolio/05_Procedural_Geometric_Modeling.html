@@ -128,13 +128,21 @@
         <div class="item-section">
             <h2><i class="fas fa-cubes"></i> Project Overview</h2>
             <p>
-                <!-- TODO: Fill in project description -->
+                <strong>Procedural Geometric Modeling</strong> is a CS250 Computer Graphics assignment focused on
+                algorithmically generating 3D mesh geometry at runtime. Rather than loading pre-made models, the
+                program constructs a <strong>Sphere</strong>, <strong>Cylinder</strong>, and <strong>Torus</strong>
+                from scratch using parametric equations — computing vertex positions, normals, and index buffers
+                entirely in code. The meshes are rendered with WebGL and support interactive adjustment of
+                <strong>slices</strong> and <strong>stacks</strong> to observe how subdivision density affects
+                surface smoothness.
             </p>
             <div class="tech-tags">
                 <span class="tech-tag">WebGL</span>
                 <span class="tech-tag">GLSL</span>
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">HTML5 Canvas</span>
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">Emscripten</span>
+                <span class="tech-tag">Parametric Geometry</span>
+                <span class="tech-tag">Index Buffer</span>
             </div>
         </div>
 
@@ -143,29 +151,29 @@
             <h2><i class="fas fa-terminal"></i> Tasks Completed</h2>
             <div class="task-grid">
                 <div class="task-card">
-                    <h3><i class="fas fa-circle-notch"></i> <!-- Task title --></h3>
+                    <h3><i class="fas fa-circle-notch"></i> Mesh Generation</h3>
                     <ul>
-                        <li><!-- item --></li>
-                        <li><!-- item --></li>
-                        <li><!-- item --></li>
+                        <li>Implemented <strong>Sphere</strong> generation using latitude/longitude parametric equations with configurable slices &amp; stacks</li>
+                        <li>Built <strong>Cylinder</strong> mesh with capped top/bottom faces and adjustable radial segments</li>
+                        <li>Constructed <strong>Torus</strong> geometry by revolving a circle profile around a central axis</li>
                     </ul>
                 </div>
 
                 <div class="task-card">
-                    <h3><i class="fas fa-code"></i> <!-- Task title --></h3>
+                    <h3><i class="fas fa-project-diagram"></i> Index Buffer &amp; Normals</h3>
                     <ul>
-                        <li><!-- item --></li>
-                        <li><!-- item --></li>
-                        <li><!-- item --></li>
+                        <li>Built an <strong>IBO (Index Buffer Object)</strong> to share vertices across triangles, minimizing GPU memory usage</li>
+                        <li>Computed per-vertex <strong>surface normals</strong> analytically from parametric derivatives</li>
+                        <li>Mapped <strong>UV texture coordinates</strong> across each mesh surface</li>
                     </ul>
                 </div>
 
                 <div class="task-card">
-                    <h3><i class="fas fa-draw-polygon"></i> <!-- Task title --></h3>
+                    <h3><i class="fas fa-sliders-h"></i> Interactive Controls</h3>
                     <ul>
-                        <li><!-- item --></li>
-                        <li><!-- item --></li>
-                        <li><!-- item --></li>
+                        <li>Exposed <strong>slices &amp; stacks</strong> parameters to the UI for real-time mesh re-generation</li>
+                        <li>Added mesh switching to toggle between Sphere, Cylinder, and Torus at runtime</li>
+                        <li>Wired up a <strong>wireframe toggle</strong> to visualize the underlying triangle topology</li>
                     </ul>
                 </div>
             </div>
@@ -177,14 +185,14 @@
             <div class="demo-wrapper">
                 <iframe
                     class="demo-frame"
-                    src="<!-- TODO: path to demo html -->"
+                    src="./Procedural_Geometric_Modeling.html"
                     title="Procedural Geometric Modeling Live Demo"
                     sandbox="allow-scripts allow-same-origin">
                     Your browser does not support iframes.
                 </iframe>
             </div>
             <div class="demo-actions">
-                <a href="<!-- TODO: path to demo html -->" target="_blank" rel="noopener" class="btn">
+                <a href="./Procedural_Geometric_Modeling.html" target="_blank" rel="noopener" class="btn">
                     <i class="fas fa-external-link-alt"></i>&nbsp; Open in New Tab
                 </a>
                 <a href="../index.html#projects" class="btn" style="background:transparent;color:var(--clr-accent);border:2px solid var(--clr-accent);">
@@ -198,23 +206,40 @@
             <h2><i class="fas fa-lightbulb"></i> Challenge &amp; Lesson</h2>
             <div class="challenge-grid">
                 <div class="challenge-card">
-                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — <!-- title --></h3>
-                    <p><!-- description --></p>
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — Torus Index Winding</h3>
+                    <p>
+                        Generating correct triangle indices for a torus was error-prone because both the tube and
+                        the ring wrap around — the last column of quads must stitch back to the first.
+                        Off-by-one errors in the index loop produced visible seams or degenerate triangles
+                        that only appeared at certain slice counts.
+                    </p>
                 </div>
 
                 <div class="challenge-card">
-                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — <!-- title --></h3>
-                    <p><!-- description --></p>
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — Smooth Normals at Poles</h3>
+                    <p>
+                        At the top and bottom poles of a sphere, all vertices in a stack ring share the same
+                        position but need different normals for correct shading. Handling this degenerate case
+                        required special-casing the pole vertices rather than using the general parametric formula.
+                    </p>
                 </div>
 
                 <div class="challenge-card">
-                    <h3><i class="fas fa-graduation-cap"></i> Lesson — <!-- title --></h3>
-                    <p><!-- description --></p>
+                    <h3><i class="fas fa-graduation-cap"></i> Lesson — Parametric Thinking</h3>
+                    <p>
+                        Expressing every shape as a function of two parameters (u, v) is a powerful abstraction.
+                        Once I had a working sphere generator, the cylinder and torus followed naturally by just
+                        changing the equations — the buffer-building code remained identical.
+                    </p>
                 </div>
 
                 <div class="challenge-card">
-                    <h3><i class="fas fa-graduation-cap"></i> Lesson — <!-- title --></h3>
-                    <p><!-- description --></p>
+                    <h3><i class="fas fa-graduation-cap"></i> Lesson — Index Buffers Pay Off</h3>
+                    <p>
+                        Switching from <code>drawArrays</code> to <code>drawElements</code> with an IBO cut
+                        vertex data size by roughly 4× on a high-subdivision sphere. Seeing that number drop in
+                        the profiler made the extra indexing complexity feel immediately worthwhile.
+                    </p>
                 </div>
             </div>
         </div>
