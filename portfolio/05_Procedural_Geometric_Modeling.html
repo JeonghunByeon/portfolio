@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="../img/face.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Quad — Portfolio</title>
+    <title>Procedural Geometric Modeling — Portfolio</title>
 
     <link rel="stylesheet" href="../external/normalize.css">
 
@@ -26,7 +26,6 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 163, 255, 0.15);
-            position: relative;
         }
 
         .demo-frame {
@@ -113,11 +112,11 @@
     <!-- Intro -->
     <section class="intro">
         <h1 class="section__title section__title--intro">
-            CS250 <strong>Hello Quad</strong>
+            CS250 <strong>Procedural Geometric Modeling</strong>
         </h1>
         <p class="section__subtitle section__subtitle--intro">WebGL / GLSL Graphics</p>
-        <img src="../img/portfolio_thumbnails/hello_quad.png"
-             alt="Hello Quad WebGL screenshot"
+        <img src="../img/portfolio_thumbnails/procedural_geo.png"
+             alt="Procedural Geometric Modeling screenshot"
              class="intro__img"
              onerror="this.style.display='none'">
     </section>
@@ -127,13 +126,9 @@
 
         <!-- Project Overview -->
         <div class="item-section">
-            <h2><i class="fas fa-cube"></i> Project Overview</h2>
+            <h2><i class="fas fa-cubes"></i> Project Overview</h2>
             <p>
-                <strong>Hello Quad</strong> is the first WebGL assignment in DigiPen's CS250 Computer Graphics course.
-                Starting from scratch, the task involves initializing a WebGL context, writing GLSL vertex and fragment
-                shaders by hand, and rendering a colored quad to the screen — covering the full graphics pipeline end to end.
-                The goal is to build a concrete understanding of buffer creation, shader compilation, and the draw-call flow
-                that underpins all real-time GPU rendering.
+                <!-- TODO: Fill in project description -->
             </p>
             <div class="tech-tags">
                 <span class="tech-tag">WebGL</span>
@@ -148,29 +143,29 @@
             <h2><i class="fas fa-terminal"></i> Tasks Completed</h2>
             <div class="task-grid">
                 <div class="task-card">
-                    <h3><i class="fas fa-microchip"></i> WebGL Pipeline Setup</h3>
+                    <h3><i class="fas fa-circle-notch"></i> <!-- Task title --></h3>
                     <ul>
-                        <li>Acquired a <strong>WebGL rendering context</strong> from the canvas element</li>
-                        <li>Configured the viewport and set the background clear color</li>
-                        <li>Enabled GL extensions and built an error-handling routine</li>
+                        <li><!-- item --></li>
+                        <li><!-- item --></li>
+                        <li><!-- item --></li>
                     </ul>
                 </div>
 
                 <div class="task-card">
-                    <h3><i class="fas fa-code"></i> GLSL Shader Authoring</h3>
+                    <h3><i class="fas fa-code"></i> <!-- Task title --></h3>
                     <ul>
-                        <li><strong>Vertex Shader</strong>: transforms vertex positions into clip space</li>
-                        <li><strong>Fragment Shader</strong>: outputs a uniform color per pixel</li>
-                        <li>Compiled and linked shaders into a WebGL program object</li>
+                        <li><!-- item --></li>
+                        <li><!-- item --></li>
+                        <li><!-- item --></li>
                     </ul>
                 </div>
 
                 <div class="task-card">
-                    <h3><i class="fas fa-draw-polygon"></i> Vertex Buffer Construction</h3>
+                    <h3><i class="fas fa-draw-polygon"></i> <!-- Task title --></h3>
                     <ul>
-                        <li>Defined <strong>6 vertices</strong> (2 triangles) composing a quad</li>
-                        <li>Created a VBO and uploaded vertex data to the GPU</li>
-                        <li>Issued the final draw call via <code>gl.drawArrays(TRIANGLES)</code></li>
+                        <li><!-- item --></li>
+                        <li><!-- item --></li>
+                        <li><!-- item --></li>
                     </ul>
                 </div>
             </div>
@@ -182,14 +177,14 @@
             <div class="demo-wrapper">
                 <iframe
                     class="demo-frame"
-                    src="./graphics_fun.html"
-                    title="Hello Quad WebGL Live Demo"
+                    src="<!-- TODO: path to demo html -->"
+                    title="Procedural Geometric Modeling Live Demo"
                     sandbox="allow-scripts allow-same-origin">
                     Your browser does not support iframes.
                 </iframe>
             </div>
             <div class="demo-actions">
-                <a href="./graphics_fun.html" target="_blank" rel="noopener" class="btn">
+                <a href="<!-- TODO: path to demo html -->" target="_blank" rel="noopener" class="btn">
                     <i class="fas fa-external-link-alt"></i>&nbsp; Open in New Tab
                 </a>
                 <a href="../index.html#projects" class="btn" style="background:transparent;color:var(--clr-accent);border:2px solid var(--clr-accent);">
@@ -203,40 +198,23 @@
             <h2><i class="fas fa-lightbulb"></i> Challenge &amp; Lesson</h2>
             <div class="challenge-grid">
                 <div class="challenge-card">
-                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — Shader Compile Debugging</h3>
-                    <p>
-                        GLSL compile errors only surface at runtime, so a single typo produces a completely black screen
-                        with no obvious feedback. I built an error-logging routine around
-                        <code>gl.getShaderInfoLog()</code> that prints the exact error line, which cut shader
-                        debugging time dramatically.
-                    </p>
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — <!-- title --></h3>
+                    <p><!-- description --></p>
                 </div>
 
                 <div class="challenge-card">
-                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — Understanding the Coordinate System</h3>
-                    <p>
-                        WebGL's clip space has Y pointing up and a range of −1 to +1, which clashes with the
-                        pixel-space intuition most developers start with. Manually placing vertices and observing
-                        the results was the fastest way to internalize NDC (Normalized Device Coordinates).
-                    </p>
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — <!-- title --></h3>
+                    <p><!-- description --></p>
                 </div>
 
                 <div class="challenge-card">
-                    <h3><i class="fas fa-graduation-cap"></i> Lesson — What APIs Actually Abstract</h3>
-                    <p>
-                        Manually wiring CPU data into a VBO, uploading it to the GPU, and watching shaders consume it
-                        made it crystal clear what Unity and high-level OpenGL wrappers are hiding. Every abstraction
-                        became easier to reason about after seeing the raw layer underneath.
-                    </p>
+                    <h3><i class="fas fa-graduation-cap"></i> Lesson — <!-- title --></h3>
+                    <p><!-- description --></p>
                 </div>
 
                 <div class="challenge-card">
-                    <h3><i class="fas fa-graduation-cap"></i> Lesson — Thinking in Pipelines</h3>
-                    <p>
-                        Rendering is not "drawing a picture" — it's data flowing through a fixed-function pipeline.
-                        That mental shift made every subsequent assignment (transforms, lighting, textures) faster
-                        to pick up, because the structure was already familiar.
-                    </p>
+                    <h3><i class="fas fa-graduation-cap"></i> Lesson — <!-- title --></h3>
+                    <p><!-- description --></p>
                 </div>
             </div>
         </div>
