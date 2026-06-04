@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../img/face.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value Noise — Portfolio</title>
+
+    <link rel="stylesheet" href="../external/normalize.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+        integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .demo-wrapper {
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 163, 255, 0.15);
+            position: relative;
+        }
+
+        .demo-frame {
+            width: 100%;
+            height: 580px;
+            border: none;
+            display: block;
+        }
+
+        .demo-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 1.5em;
+            flex-wrap: wrap;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 1.5em;
+        }
+
+        .challenge-card {
+            background: rgba(0, 163, 255, 0.03);
+            border: 1px solid rgba(0, 163, 255, 0.12);
+            border-left: 4px solid var(--clr-accent);
+            padding: 1.8em;
+            border-radius: 12px;
+        }
+
+        .challenge-card h3 {
+            color: var(--clr-accent);
+            margin-bottom: 0.8em;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .challenge-card p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--clr-dark);
+            opacity: 0.88;
+            margin: 0;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background: rgba(0, 163, 255, 0.08);
+            color: var(--clr-accent);
+            border: 1px solid rgba(0, 163, 255, 0.2);
+            padding: 0.25em 0.75em;
+            border-radius: 999px;
+            font-family: var(--ff-secondary);
+            font-size: 0.8rem;
+            margin: 0.2em 0.2em 0.2em 0;
+        }
+
+        .tech-tags {
+            margin-top: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo"></div>
+        <button class="nav-toggle" aria-label="toggle navigation">
+            <span class="hamburger"></span>
+        </button>
+        <nav class="nav">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="../index.html" class="nav__link">Home</a></li>
+                <li class="nav__item"><a href="../index.html#skills" class="nav__link">Skills</a></li>
+                <li class="nav__item"><a href="../index.html#about" class="nav__link">About Me</a></li>
+                <li class="nav__item"><a href="../index.html#projects" class="nav__link">Projects</a></li>
+                <li class="nav__item"><a href="../index.html#resume" class="nav__link">Resume</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Intro -->
+    <section class="intro">
+        <h1 class="section__title section__title--intro">
+            CS250 <strong>Value Noise</strong>
+        </h1>
+        <p class="section__subtitle section__subtitle--intro">WebGL2 / C++ / Emscripten</p>
+        <img src="../img/portfolio_thumbnails/06_value.jpg"
+             alt="Value Noise screenshot"
+             class="intro__img"
+             onerror="this.style.display='none'">
+    </section>
+
+    <!-- Main content -->
+    <div class="portfolio-item-individual">
+
+        <!-- Project Overview -->
+        <div class="item-section">
+            <h2><i class="fas fa-wave-square"></i> Project Overview</h2>
+            <p>
+                <strong>Value Noise</strong> is a CS250 Computer Graphics assignment that implements procedural
+                noise generation entirely on the CPU using C++. A permutation hash table maps lattice coordinates
+                to random values, and smooth interpolation (Quintic, Smoothstep, Cosine, or Linear) blends
+                adjacent values to produce continuous noise. The generated texture is uploaded to the GPU each
+                frame and rendered via WebGL2.
+            </p>
+            <p>
+                The demo supports 1D, 2D, and 3D noise, multiple pattern modes (Plain Value, Fractal Sum,
+                Turbulence, Marble, Wood), and interactive controls for period dimension, texture resolution,
+                tiling scale, and value sets — all running in real time using a multi-threaded job system on
+                native builds and single-threaded incremental generation on the web.
+            </p>
+            <div class="tech-tags">
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">WebGL2</span>
+                <span class="tech-tag">GLSL ES 3.0</span>
+                <span class="tech-tag">Emscripten</span>
+                <span class="tech-tag">OpenGL ES 3.0</span>
+                <span class="tech-tag">ImGui</span>
+                <span class="tech-tag">CMake</span>
+            </div>
+        </div>
+
+        <!-- Tasks Completed -->
+        <div class="item-section">
+            <h2><i class="fas fa-terminal"></i> Tasks Completed</h2>
+            <div class="task-grid">
+                <div class="task-card">
+                    <h3><i class="fas fa-hashtag"></i> Permutation Hash Table</h3>
+                    <ul>
+                        <li>Built a <strong>shuffle-based permutation table</strong> for period-repeating hash lookups</li>
+                        <li>Supports 1D, 2D, and 3D coordinate hashing with configurable period (2–16384)</li>
+                        <li>Guarantees <strong>tiling</strong> — noise wraps seamlessly at any period boundary</li>
+                    </ul>
+                </div>
+
+                <div class="task-card">
+                    <h3><i class="fas fa-bezier-curve"></i> Smooth Interpolation</h3>
+                    <ul>
+                        <li>Implemented <strong>4 fade functions</strong>: Linear, Cosine, Smoothstep, Quintic</li>
+                        <li>Applied <strong>bilinear</strong> and <strong>trilinear</strong> mixing for 2D/3D noise</li>
+                        <li>Quintic (6t⁵ − 15t⁴ + 10t³) produces zero first and second derivatives at lattice points</li>
+                    </ul>
+                </div>
+
+                <div class="task-card">
+                    <h3><i class="fas fa-layer-group"></i> Fractal Patterns</h3>
+                    <ul>
+                        <li><strong>Fractal Sum</strong>: octave stacking with lacunarity=2, gain=0.5</li>
+                        <li><strong>Turbulence</strong>: absolute value of each octave for sharp ridges</li>
+                        <li><strong>Marble &amp; Wood</strong>: sin-wave distortion driven by fractal noise</li>
+                    </ul>
+                </div>
+
+                <div class="task-card">
+                    <h3><i class="fas fa-microchip"></i> CPU Texture Generation</h3>
+                    <ul>
+                        <li>Generates RGBA textures up to <strong>4096×4096</strong> on the CPU</li>
+                        <li>Native: parallel generation via <strong>multi-threaded job system</strong></li>
+                        <li>Web: incremental row-by-row generation capped at ~31 ms/frame to stay responsive</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Demo -->
+        <div class="item-section">
+            <h2><i class="fas fa-play-circle"></i> Live Demo</h2>
+            <p style="font-size:0.9rem;opacity:0.7;margin-bottom:1em;">
+                <i class="fas fa-info-circle"></i>
+                Texture generation runs on the CPU — larger sizes (512+) may take a few seconds to appear.
+                Use the <strong>Demo Settings</strong> panel to switch noise dimension, pattern type, and smoothing method.
+            </p>
+            <div class="demo-wrapper">
+                <iframe
+                    class="demo-frame"
+                    src="../webgl/D06ValueNoise/graphics_fun.html?start=value"
+                    title="Value Noise Live Demo"
+                    sandbox="allow-scripts allow-same-origin">
+                    Your browser does not support iframes.
+                </iframe>
+            </div>
+            <div class="demo-actions">
+                <a href="../webgl/D06ValueNoise/graphics_fun.html?start=value" target="_blank" rel="noopener" class="btn">
+                    <i class="fas fa-external-link-alt"></i>&nbsp; Open in New Tab
+                </a>
+                <a href="../index.html#projects" class="btn" style="background:transparent;color:var(--clr-accent);border:2px solid var(--clr-accent);">
+                    ← Back to Projects
+                </a>
+            </div>
+        </div>
+
+        <!-- Challenge & Lesson -->
+        <div class="item-section">
+            <h2><i class="fas fa-lightbulb"></i> Challenge &amp; Lesson</h2>
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — Texture Filtering Bug</h3>
+                    <p>
+                        With period = texture size (1 pixel per lattice cell), the output should show sharp
+                        solid-color blocks. Instead it appeared blurry — the GPU was magnifying pixels with
+                        <code>GL_LINEAR</code>. The root cause was that <code>LoadFromMemory</code> hardcoded
+                        <code>GL_LINEAR</code> without syncing the member variable, so a subsequent
+                        <code>SetFiltering(NearestPixel)</code> call silently became a no-op due to an
+                        early-return guard. Fixing the sync made nearest-pixel rendering work correctly.
+                    </p>
+                </div>
+
+                <div class="challenge-card">
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — Frequency &amp; the Mosaic Effect</h3>
+                    <p>
+                        Value noise looks smooth when <em>frequency = period / textureSize</em> is small
+                        (many pixels per cell). When frequency = 1.0 every pixel lands exactly on a lattice
+                        point, the interpolant is always 0, and the result is solid-color blocks — the
+                        classic "mosaic" look. Understanding this ratio was key to controlling the visual output.
+                    </p>
+                </div>
+
+                <div class="challenge-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Lesson — CPU vs GPU Noise</h3>
+                    <p>
+                        Generating noise on the CPU and uploading a texture each frame is simple to debug but
+                        expensive at high resolutions. Implementing the same math in a fragment shader would
+                        evaluate noise per-pixel in parallel on the GPU — no texture upload needed — and scale
+                        to any resolution for free.
+                    </p>
+                </div>
+
+                <div class="challenge-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Lesson — Tiling Through Permutation</h3>
+                    <p>
+                        Using <code>x &amp; mask</code> instead of <code>x % period</code> in the hash
+                        lookup makes tiling essentially free and branch-free, as long as the period is a
+                        power of two. This is why all noise libraries restrict period sizes to powers of two.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a href="mailto:byeonjeonghun93@gmail.com" class="footer__link">byeonjeonghun93@gmail.com</a>
+        <ul class="social-list">
+            <li class="social-list__item">
+                <a class="social-list__link" href="https://linkedin.com/in/mylinkedinid">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </li>
+            <li class="social-list__item">
+                <a class="social-list__link" href="https://github.com/JeonghunByeon">
+                    <i class="fab fa-github"></i>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script src="../js/index.js"></script>
+</body>
+
+</html>
