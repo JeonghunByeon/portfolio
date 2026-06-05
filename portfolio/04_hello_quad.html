@@ -310,37 +310,52 @@
 
     <script src="../js/index.js"></script>
     <script>
+        /* Register service worker so COOP/COEP headers are injected —
+           required for SharedArrayBuffer in Emscripten pthread builds on
+           static hosts (GitHub Pages, etc.) */
+        if ('serviceWorker' in navigator && !self.crossOriginIsolated) {
+            navigator.serviceWorker.register('../coi-serviceworker.js', { scope: '../' })
+                .then(function (reg) {
+                    if (!reg.active) { window.location.reload(); }
+                });
+        }
+
         (function () {
             var frame = document.getElementById('demoFrame');
             var errorBox = document.getElementById('demoError');
 
-            function showError() {
-                errorBox.style.display = 'flex';
-            }
+            function showError() { errorBox.style.display = 'flex'; }
 
             function reloadDemo() {
                 errorBox.style.display = 'none';
                 frame.src = frame.src;
             }
 
-            // Intercept alert() inside the iframe (catches "WebGL context lost")
             frame.addEventListener('load', function () {
+                // Intercept alert() (e.g. "WebGL context lost")
+                try { frame.contentWindow.alert = function () { showError(); }; } catch (e) {}
+
+                // Watch for error text rendered into the iframe DOM
                 try {
-                    frame.contentWindow.alert = function (msg) {
-                        showError();
-                    };
+                    var observer = new MutationObserver(function () {
+                        var body = frame.contentDocument && frame.contentDocument.body;
+                        if (body && /not supported|context lost|failed to create/i.test(body.innerText)) {
+                            showError();
+                            observer.disconnect();
+                        }
+                    });
+                    observer.observe(frame.contentDocument.body, { childList: true, subtree: true });
                 } catch (e) {}
 
-                // Fallback: no canvas after 8s → show error
+                // Fallback: no canvas after 10s → show error
                 setTimeout(function () {
                     try {
                         var doc = frame.contentDocument || frame.contentWindow.document;
                         if (!doc || !doc.querySelector('canvas')) { showError(); }
                     } catch (e) {}
-                }, 8000);
+                }, 10000);
             });
 
-            // Expose reload to the button in the overlay
             document.getElementById('demoReload').addEventListener('click', reloadDemo);
         })();
     </script>

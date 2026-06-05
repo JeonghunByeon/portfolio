@@ -314,13 +314,18 @@
 
     <script src="../js/index.js"></script>
     <script>
+        if ('serviceWorker' in navigator && !self.crossOriginIsolated) {
+            navigator.serviceWorker.register('../coi-serviceworker.js', { scope: '../' })
+                .then(function (reg) {
+                    if (!reg.active) { window.location.reload(); }
+                });
+        }
+
         (function () {
             var frame = document.getElementById('demoFrame');
             var errorBox = document.getElementById('demoError');
 
-            function showError() {
-                errorBox.style.display = 'flex';
-            }
+            function showError() { errorBox.style.display = 'flex'; }
 
             function reloadDemo() {
                 errorBox.style.display = 'none';
@@ -328,10 +333,17 @@
             }
 
             frame.addEventListener('load', function () {
+                try { frame.contentWindow.alert = function () { showError(); }; } catch (e) {}
+
                 try {
-                    frame.contentWindow.alert = function (msg) {
-                        showError();
-                    };
+                    var observer = new MutationObserver(function () {
+                        var body = frame.contentDocument && frame.contentDocument.body;
+                        if (body && /not supported|context lost|failed to create/i.test(body.innerText)) {
+                            showError();
+                            observer.disconnect();
+                        }
+                    });
+                    observer.observe(frame.contentDocument.body, { childList: true, subtree: true });
                 } catch (e) {}
 
                 setTimeout(function () {
@@ -339,7 +351,7 @@
                         var doc = frame.contentDocument || frame.contentWindow.document;
                         if (!doc || !doc.querySelector('canvas')) { showError(); }
                     } catch (e) {}
-                }, 8000);
+                }, 10000);
             });
 
             document.getElementById('demoReload').addEventListener('click', reloadDemo);
