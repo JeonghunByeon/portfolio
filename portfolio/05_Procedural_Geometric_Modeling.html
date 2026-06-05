@@ -54,6 +54,47 @@
             flex-shrink: 0;
         }
 
+        .demo-placeholder {
+            width: 100%;
+            height: 520px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            background: linear-gradient(135deg, #0a0a1a 0%, #001833 100%);
+            cursor: pointer;
+            border-radius: 15px;
+        }
+
+        .demo-placeholder:hover .demo-play-btn {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 163, 255, 0.5);
+        }
+
+        .demo-play-btn {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--clr-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 20px rgba(0, 163, 255, 0.3);
+        }
+
+        .demo-play-btn i { font-size: 1.8rem; color: #fff; margin-left: 4px; }
+
+        .demo-placeholder p {
+            color: rgba(255,255,255,0.7);
+            font-family: var(--ff-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .demo-placeholder strong { color: #fff; }
+
         .demo-error {
             display: none;
             position: absolute;
@@ -223,14 +264,12 @@
                 <i class="fab fa-chrome"></i>
                 Best viewed in <strong>Google Chrome</strong>. The demo requires WebGL 2 — if the canvas appears blank, try opening in a new tab with Chrome.
             </p>
-            <div class="demo-wrapper">
-                <iframe
-                    id="demoFrame"
-                    class="demo-frame"
-                    src="./Procedural_Geometric_Modeling.html"
-                    title="Procedural Geometric Modeling Live Demo">
-                    Your browser does not support iframes.
-                </iframe>
+            <div class="demo-wrapper" id="demoWrapper">
+                <div class="demo-placeholder" id="demoPlaceholder">
+                    <div class="demo-play-btn"><i class="fas fa-play"></i></div>
+                    <p><strong>Click to load the WebGL demo</strong></p>
+                    <p>Loads on demand — close other WebGL tabs first for best results</p>
+                </div>
                 <div class="demo-error" id="demoError">
                     <i class="fas fa-exclamation-triangle"></i>
                     <p>WebGL context was lost or could not be created.<br>
@@ -316,45 +355,52 @@
     <script>
         if ('serviceWorker' in navigator && !self.crossOriginIsolated) {
             navigator.serviceWorker.register('../coi-serviceworker.js', { scope: '../' })
-                .then(function (reg) {
-                    if (!reg.active) { window.location.reload(); }
-                });
+                .then(function (reg) { if (!reg.active) window.location.reload(); });
         }
 
         (function () {
-            var frame = document.getElementById('demoFrame');
-            var errorBox = document.getElementById('demoError');
+            var DEMO_SRC = './Procedural_Geometric_Modeling.html';
+            var wrapper     = document.getElementById('demoWrapper');
+            var placeholder = document.getElementById('demoPlaceholder');
+            var errorBox    = document.getElementById('demoError');
+            var frame       = null;
 
             function showError() { errorBox.style.display = 'flex'; }
 
-            function reloadDemo() {
-                errorBox.style.display = 'none';
-                frame.src = frame.src;
+            function loadDemo() {
+                placeholder.style.display = 'none';
+                frame = document.createElement('iframe');
+                frame.className = 'demo-frame';
+                frame.title    = 'Procedural Geometric Modeling Live Demo';
+                frame.src      = DEMO_SRC;
+                wrapper.insertBefore(frame, errorBox);
+
+                frame.addEventListener('load', function () {
+                    try { frame.contentWindow.alert = function () { showError(); }; } catch (e) {}
+                    try {
+                        var obs = new MutationObserver(function () {
+                            var body = frame.contentDocument && frame.contentDocument.body;
+                            if (body && /not supported|context lost|failed to create/i.test(body.innerText)) {
+                                showError(); obs.disconnect();
+                            }
+                        });
+                        obs.observe(frame.contentDocument.body, { childList: true, subtree: true });
+                    } catch (e) {}
+                    setTimeout(function () {
+                        try {
+                            var doc = frame.contentDocument || frame.contentWindow.document;
+                            if (!doc || !doc.querySelector('canvas')) showError();
+                        } catch (e) {}
+                    }, 10000);
+                });
             }
 
-            frame.addEventListener('load', function () {
-                try { frame.contentWindow.alert = function () { showError(); }; } catch (e) {}
+            placeholder.addEventListener('click', loadDemo);
 
-                try {
-                    var observer = new MutationObserver(function () {
-                        var body = frame.contentDocument && frame.contentDocument.body;
-                        if (body && /not supported|context lost|failed to create/i.test(body.innerText)) {
-                            showError();
-                            observer.disconnect();
-                        }
-                    });
-                    observer.observe(frame.contentDocument.body, { childList: true, subtree: true });
-                } catch (e) {}
-
-                setTimeout(function () {
-                    try {
-                        var doc = frame.contentDocument || frame.contentWindow.document;
-                        if (!doc || !doc.querySelector('canvas')) { showError(); }
-                    } catch (e) {}
-                }, 10000);
+            document.getElementById('demoReload').addEventListener('click', function () {
+                errorBox.style.display = 'none';
+                if (frame) { frame.src = DEMO_SRC; }
             });
-
-            document.getElementById('demoReload').addEventListener('click', reloadDemo);
         })();
     </script>
 </body>
