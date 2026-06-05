@@ -26,6 +26,7 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 163, 255, 0.15);
+            position: relative;
         }
 
         .demo-frame {
@@ -34,6 +35,42 @@
             border: none;
             display: block;
         }
+
+        .demo-notice {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 163, 255, 0.07);
+            border: 1px solid rgba(0, 163, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.6em 1em;
+            margin-bottom: 1em;
+            font-size: 0.88rem;
+            color: var(--clr-dark);
+        }
+
+        .demo-notice i {
+            color: var(--clr-accent);
+            flex-shrink: 0;
+        }
+
+        .demo-error {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.82);
+            color: #fff;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
+            padding: 2em;
+            border-radius: 15px;
+        }
+
+        .demo-error i { font-size: 2rem; color: #ff6b6b; }
+        .demo-error p { margin: 0; font-size: 0.95rem; line-height: 1.6; opacity: 0.9; }
 
         .demo-actions {
             display: flex;
@@ -182,14 +219,26 @@
         <!-- Live Demo -->
         <div class="item-section">
             <h2><i class="fas fa-play-circle"></i> Live Demo</h2>
+            <p class="demo-notice">
+                <i class="fab fa-chrome"></i>
+                Best viewed in <strong>Google Chrome</strong>. The demo requires WebGL 2 — if the canvas appears blank, try opening in a new tab with Chrome.
+            </p>
             <div class="demo-wrapper">
                 <iframe
+                    id="demoFrame"
                     class="demo-frame"
                     src="./Procedural_Geometric_Modeling.html"
-                    title="Procedural Geometric Modeling Live Demo"
-                    sandbox="allow-scripts allow-same-origin">
+                    title="Procedural Geometric Modeling Live Demo">
                     Your browser does not support iframes.
                 </iframe>
+                <div class="demo-error" id="demoError">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>WebGL context was lost or could not be created.<br>
+                       Try reloading, or open in a new tab with <strong>Google Chrome</strong>.</p>
+                    <button id="demoReload" class="btn" style="margin-top:0.5em;">
+                        <i class="fas fa-redo"></i>&nbsp; Reload Demo
+                    </button>
+                </div>
             </div>
             <div class="demo-actions">
                 <a href="./Procedural_Geometric_Modeling.html" target="_blank" rel="noopener" class="btn">
@@ -264,6 +313,38 @@
     </footer>
 
     <script src="../js/index.js"></script>
+    <script>
+        (function () {
+            var frame = document.getElementById('demoFrame');
+            var errorBox = document.getElementById('demoError');
+
+            function showError() {
+                errorBox.style.display = 'flex';
+            }
+
+            function reloadDemo() {
+                errorBox.style.display = 'none';
+                frame.src = frame.src;
+            }
+
+            frame.addEventListener('load', function () {
+                try {
+                    frame.contentWindow.alert = function (msg) {
+                        showError();
+                    };
+                } catch (e) {}
+
+                setTimeout(function () {
+                    try {
+                        var doc = frame.contentDocument || frame.contentWindow.document;
+                        if (!doc || !doc.querySelector('canvas')) { showError(); }
+                    } catch (e) {}
+                }, 8000);
+            });
+
+            document.getElementById('demoReload').addEventListener('click', reloadDemo);
+        })();
+    </script>
 </body>
 
 </html>

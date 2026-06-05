@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../img/face.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Mapping — Portfolio</title>
+
+    <link rel="stylesheet" href="../external/normalize.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+        integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .demo-wrapper {
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 163, 255, 0.15);
+            position: relative;
+        }
+
+        .demo-frame {
+            width: 100%;
+            height: 580px;
+            border: none;
+            display: block;
+        }
+
+        .demo-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 1.5em;
+            flex-wrap: wrap;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 1.5em;
+        }
+
+        .challenge-card {
+            background: rgba(0, 163, 255, 0.03);
+            border: 1px solid rgba(0, 163, 255, 0.12);
+            border-left: 4px solid var(--clr-accent);
+            padding: 1.8em;
+            border-radius: 12px;
+        }
+
+        .challenge-card h3 {
+            color: var(--clr-accent);
+            margin-bottom: 0.8em;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .challenge-card p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--clr-dark);
+            opacity: 0.88;
+            margin: 0;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background: rgba(0, 163, 255, 0.08);
+            color: var(--clr-accent);
+            border: 1px solid rgba(0, 163, 255, 0.2);
+            padding: 0.25em 0.75em;
+            border-radius: 999px;
+            font-family: var(--ff-secondary);
+            font-size: 0.8rem;
+            margin: 0.2em 0.2em 0.2em 0;
+        }
+
+        .tech-tags {
+            margin-top: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo"></div>
+        <button class="nav-toggle" aria-label="toggle navigation">
+            <span class="hamburger"></span>
+        </button>
+        <nav class="nav">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="../index.html" class="nav__link">Home</a></li>
+                <li class="nav__item"><a href="../index.html#skills" class="nav__link">Skills</a></li>
+                <li class="nav__item"><a href="../index.html#about" class="nav__link">About Me</a></li>
+                <li class="nav__item"><a href="../index.html#projects" class="nav__link">Projects</a></li>
+                <li class="nav__item"><a href="../index.html#resume" class="nav__link">Resume</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Intro -->
+    <section class="intro">
+        <h1 class="section__title section__title--intro">
+            CS250 <strong>Shadow Mapping</strong>
+        </h1>
+        <p class="section__subtitle section__subtitle--intro">WebGL2 / C++ / Emscripten</p>
+        <img src="../img/portfolio_thumbnails/05_shadow.jpg"
+             alt="Shadow Mapping screenshot"
+             class="intro__img"
+             onerror="this.style.display='none'">
+    </section>
+
+    <!-- Main content -->
+    <div class="portfolio-item-individual">
+
+        <!-- Project Overview -->
+        <div class="item-section">
+            <h2><i class="fas fa-sun"></i> Project Overview</h2>
+            <p>
+                <strong>Shadow Mapping</strong> is a CS250 Computer Graphics assignment that implements
+                real-time shadow rendering using a two-pass rendering technique. In the first pass, the scene
+                is rendered from the light's point of view into a depth texture (shadow map). In the second
+                pass, each fragment's position is transformed into light space and compared against the stored
+                depth to determine whether it is in shadow.
+            </p>
+            <p>
+                The demo supports multiple object models (sphere, torus, trefoil knot, cylinder, cone, cube,
+                and plane), adjustable light position and projection parameters, Percentage Closer Filtering
+                (PCF) for soft shadow edges, fog, and a wireframe visualization of the light's view frustum.
+                A depth map preview panel lets you inspect the raw shadow map in real time.
+            </p>
+            <div class="tech-tags">
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">WebGL2</span>
+                <span class="tech-tag">GLSL ES 3.0</span>
+                <span class="tech-tag">Emscripten</span>
+                <span class="tech-tag">OpenGL ES 3.0</span>
+                <span class="tech-tag">ImGui</span>
+                <span class="tech-tag">CMake</span>
+                <span class="tech-tag">FBO</span>
+            </div>
+        </div>
+
+        <!-- Tasks Completed -->
+        <div class="item-section">
+            <h2><i class="fas fa-terminal"></i> Tasks Completed</h2>
+            <div class="task-grid">
+                <div class="task-card">
+                    <h3><i class="fas fa-camera"></i> Depth Map Rendering</h3>
+                    <ul>
+                        <li>Rendered the scene from the light's POV into a <strong>depth-only FBO</strong></li>
+                        <li>Supports both <strong>orthographic</strong> (directional) and <strong>perspective</strong> (spot) light projections</li>
+                        <li>Depth texture bound as <code>sampler2DShadow</code> for hardware comparison</li>
+                    </ul>
+                </div>
+
+                <div class="task-card">
+                    <h3><i class="fas fa-filter"></i> PCF Soft Shadows</h3>
+                    <ul>
+                        <li>Implemented <strong>Percentage Closer Filtering</strong> with a configurable kernel size</li>
+                        <li>Used <code>textureProj</code> with <code>sampler2DShadow</code> for per-sample depth comparison</li>
+                        <li>Produces smooth shadow penumbrae without blurring the depth map itself</li>
+                    </ul>
+                </div>
+
+                <div class="task-card">
+                    <h3><i class="fas fa-shapes"></i> Procedural Geometry</h3>
+                    <ul>
+                        <li>Generated <strong>sphere, torus, trefoil knot, cylinder, cone, cube, and plane</strong> meshes procedurally</li>
+                        <li>All meshes share a unified vertex layout (position, normal, UV) for seamless shader reuse</li>
+                        <li>Correct outward face normals computed from parametric surface cross products</li>
+                    </ul>
+                </div>
+
+                <div class="task-card">
+                    <h3><i class="fas fa-border-all"></i> Light Frustum Visualization</h3>
+                    <ul>
+                        <li>Rendered the light's view frustum as a <strong>wireframe box</strong> in world space</li>
+                        <li>Built from 12 explicit edge pairs to avoid diagonal artifacts from triangle decomposition</li>
+                        <li>Transformed from NDC to world space using the inverse light view-projection matrix</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Demo -->
+        <div class="item-section">
+            <h2><i class="fas fa-play-circle"></i> Live Demo</h2>
+            <p style="font-size:0.9rem;opacity:0.7;margin-bottom:1em;">
+                <i class="fas fa-info-circle"></i>
+                Use the <strong>Demo Settings</strong> panel to switch object model, adjust the light position,
+                toggle PCF, and inspect the shadow depth map.
+            </p>
+            <div class="demo-wrapper">
+                <iframe
+                    class="demo-frame"
+                    src="../webgl/D05ShadowMapping/graphics_fun.html?start=shadow"
+                    title="Shadow Mapping Live Demo"
+                    sandbox="allow-scripts allow-same-origin">
+                    Your browser does not support iframes.
+                </iframe>
+            </div>
+            <div class="demo-actions">
+                <a href="../webgl/D05ShadowMapping/graphics_fun.html?start=shadow" target="_blank" rel="noopener" class="btn">
+                    <i class="fas fa-external-link-alt"></i>&nbsp; Open in New Tab
+                </a>
+                <a href="../index.html#projects" class="btn" style="background:transparent;color:var(--clr-accent);border:2px solid var(--clr-accent);">
+                    ← Back to Projects
+                </a>
+            </div>
+        </div>
+
+        <!-- Challenge & Lesson -->
+        <div class="item-section">
+            <h2><i class="fas fa-lightbulb"></i> Challenge &amp; Lesson</h2>
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — VAO EBO Corruption Crash</h3>
+                    <p>
+                        The app crashed immediately on startup with a <code>STATUS_ACCESS_VIOLATION</code>.
+                        The root cause was that <code>SetIndexBuffer</code> left the VAO bound after attaching
+                        the index buffer. The next <code>IndexBuffer</code> constructor then bound a new EBO
+                        to the still-active VAO and unbound it, silently zeroing out the previous VAO's stored
+                        EBO handle. When <code>glDrawElements</code> later tried to read from EBO=0 it
+                        dereferenced address 0 and crashed. Adding a single <code>glBindVertexArray(0)</code>
+                        at the end of <code>SetIndexBuffer</code> fixed the crash.
+                    </p>
+                </div>
+
+                <div class="challenge-card">
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — Inside-Out Sphere Normals</h3>
+                    <p>
+                        The sphere, torus, and trefoil knot all appeared hollow — back-face culling was
+                        removing the outer surface. The parametric grid generates quads where one axis
+                        (phi / major circle / tangent) points "downward" in parameter space, making the
+                        default <code>{p00, p01, p10}</code> winding produce inward-facing normals.
+                        Swapping to <code>{p00, p10, p01}</code> reversed the winding so the cross product
+                        points outward, making the surfaces render correctly.
+                    </p>
+                </div>
+
+                <div class="challenge-card">
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — Wireframe Diagonal Lines</h3>
+                    <p>
+                        The light frustum wireframe displayed diagonal lines across each face because
+                        <code>to_submesh_as_lines</code> converts triangle meshes to line pairs — including
+                        the shared diagonal edge that splits each quad into two triangles. The fix was to
+                        bypass that helper and build the wireframe directly from 12 explicit cube edge
+                        pairs, producing a clean box with no diagonals.
+                    </p>
+                </div>
+
+                <div class="challenge-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Lesson — Two-Pass Rendering</h3>
+                    <p>
+                        Shadow mapping requires two full scene renders per frame: once from the light to
+                        build the depth map, and once from the camera to shade with shadows. Keeping the
+                        depth-pass shader minimal (position-only, no fragment output) is critical for
+                        performance since the depth map render is purely for geometry, not color. The
+                        shadow matrix — light projection × view × bias — maps world positions directly
+                        into the [0,1] depth texture space.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a href="mailto:byeonjeonghun93@gmail.com" class="footer__link">byeonjeonghun93@gmail.com</a>
+        <ul class="social-list">
+            <li class="social-list__item">
+                <a class="social-list__link" href="https://linkedin.com/in/mylinkedinid">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </li>
+            <li class="social-list__item">
+                <a class="social-list__link" href="https://github.com/JeonghunByeon">
+                    <i class="fab fa-github"></i>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script src="../js/index.js"></script>
+</body>
+
+</html>
