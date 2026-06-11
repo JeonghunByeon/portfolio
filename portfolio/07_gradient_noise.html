@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../img/face.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Noise — Portfolio</title>
+
+    <link rel="stylesheet" href="../external/normalize.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+        integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .demo-wrapper {
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 163, 255, 0.15);
+            position: relative;
+        }
+
+        .demo-frame {
+            width: 100%;
+            height: 580px;
+            border: none;
+            display: block;
+        }
+
+        .demo-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 1.5em;
+            flex-wrap: wrap;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 1.5em;
+        }
+
+        .challenge-card {
+            background: rgba(0, 163, 255, 0.03);
+            border: 1px solid rgba(0, 163, 255, 0.12);
+            border-left: 4px solid var(--clr-accent);
+            padding: 1.8em;
+            border-radius: 12px;
+        }
+
+        .challenge-card h3 {
+            color: var(--clr-accent);
+            margin-bottom: 0.8em;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .challenge-card p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: var(--clr-dark);
+            opacity: 0.88;
+            margin: 0;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background: rgba(0, 163, 255, 0.08);
+            color: var(--clr-accent);
+            border: 1px solid rgba(0, 163, 255, 0.2);
+            padding: 0.25em 0.75em;
+            border-radius: 999px;
+            font-family: var(--ff-secondary);
+            font-size: 0.8rem;
+            margin: 0.2em 0.2em 0.2em 0;
+        }
+
+        .tech-tags {
+            margin-top: 1em;
+        }
+
+        .noise-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 1.2em;
+        }
+
+        .noise-label {
+            background: rgba(0, 163, 255, 0.06);
+            border: 1px solid rgba(0, 163, 255, 0.15);
+            border-radius: 8px;
+            padding: 0.6em 1em;
+            font-family: var(--ff-secondary);
+            font-size: 0.85rem;
+            color: var(--clr-accent);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo"></div>
+        <button class="nav-toggle" aria-label="toggle navigation">
+            <span class="hamburger"></span>
+        </button>
+        <nav class="nav">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="../index.html" class="nav__link">Home</a></li>
+                <li class="nav__item"><a href="../index.html#skills" class="nav__link">Skills</a></li>
+                <li class="nav__item"><a href="../index.html#about" class="nav__link">About Me</a></li>
+                <li class="nav__item"><a href="../index.html#projects" class="nav__link">Projects</a></li>
+                <li class="nav__item"><a href="../index.html#resume" class="nav__link">Resume</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Intro -->
+    <section class="intro">
+        <h1 class="section__title section__title--intro">
+            CS250 <strong>Gradient Noise</strong>
+        </h1>
+        <p class="section__subtitle section__subtitle--intro">WebGL2 / GLSL / C++ / Emscripten</p>
+        <img src="../img/portfolio_thumbnails/07_gradient.jpg"
+             alt="Gradient Noise screenshot"
+             class="intro__img"
+             onerror="this.style.display='none'">
+    </section>
+
+    <!-- Main content -->
+    <div class="portfolio-item-individual">
+
+        <!-- Project Overview -->
+        <div class="item-section">
+            <h2><i class="fas fa-wave-square"></i> Project Overview</h2>
+            <p>
+                <strong>Gradient Noise (Perlin Noise)</strong> is a CS250 Computer Graphics assignment that
+                implements Ken Perlin's Improved Gradient Noise algorithm entirely on the GPU using GLSL.
+                Unlike the previous Value Noise assignment — which computed noise on the CPU and uploaded a
+                texture each frame — all noise evaluation happens in a fragment shader, writing into an
+                offscreen <strong>R32F framebuffer</strong> at full floating-point precision.
+            </p>
+            <p>
+                A hardcoded period-64 permutation table and 12 fixed gradient directions produce seamlessly
+                tiling 3D noise. A second pass renders the stored noise texture as either a flat 2D slice
+                or a displaced 3D terrain surface, with ImGui controls for pattern type, tiling scale,
+                Z-depth animation, and surface geometry parameters.
+            </p>
+            <div class="tech-tags">
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">GLSL ES 3.0</span>
+                <span class="tech-tag">WebGL2</span>
+                <span class="tech-tag">OpenGL 4.2+</span>
+                <span class="tech-tag">Emscripten</span>
+                <span class="tech-tag">ImGui</span>
+                <span class="tech-tag">CMake</span>
+            </div>
+        </div>
+
+        <!-- Tasks Completed -->
+        <div class="item-section">
+            <h2><i class="fas fa-terminal"></i> Tasks Completed</h2>
+            <div class="task-grid">
+                <div class="task-card">
+                    <h3><i class="fas fa-code"></i> GPU Gradient Noise in GLSL</h3>
+                    <ul>
+                        <li>Implemented <strong>Improved 3D Perlin Noise</strong> in a fragment shader</li>
+                        <li>Hardcoded period-64 permutation table (doubled to 128 entries) to avoid bounds issues</li>
+                        <li>Used <strong>12 fixed gradient directions</strong> cycled via <code>hash &amp; 15</code> for consistent distribution</li>
+                        <li>Quintic fade function <code>6t⁵ − 15t⁴ + 10t³</code> ensures zero first and second derivatives at lattice boundaries</li>
+                    </ul>
+                </div>
+
+                <div class="task-card">
+                    <h3><i class="fas fa-layer-group"></i> Five Noise Patterns</h3>
+                    <ul>
+                        <li><strong>Plain Gradient</strong> — raw noise remapped from [−1, 1] to [0, 1]</li>
+                        <li><strong>Fractal Sum (fBm)</strong> — 5 octaves with lacunarity 2, gain 0.5</li>
+                        <li><strong>Turbulence</strong> — absolute-value fBm for sharp ridge features</li>
+                        <li><strong>Marble</strong> — sine bands distorted by turbulence (integer band count ensures tiling)</li>
+                        <li><strong>Wood</strong> — concentric rings via <code>fract(noise × 10)</code></li>
+                    </ul>
+                    <div class="noise-preview">
+                        <div class="noise-label">Plain Gradient</div>
+                        <div class="noise-label">Fractal Sum</div>
+                        <div class="noise-label">Turbulence</div>
+                        <div class="noise-label">Marble</div>
+                        <div class="noise-label">Wood</div>
+                    </div>
+                </div>
+
+                <div class="task-card">
+                    <h3><i class="fas fa-database"></i> R32F Framebuffer &amp; Texture System</h3>
+                    <ul>
+                        <li>Extended <code>Texture</code> class with <code>ColorFormat</code> enum: <code>RGBA8</code>, <code>RGBA32F</code>, <code>R32F</code></li>
+                        <li>New <code>LoadAsFormat()</code> uses <code>TexStorage2D</code> on GL 4.2+ / WebGL and falls back to <code>TexImage2D</code> on older drivers</li>
+                        <li>Updated <code>FrameBuffer::ColorComponent</code> enum and <code>LoadWithSpecification()</code> to support all three formats</li>
+                        <li>Noise values stored as single-channel 32-bit float — no precision loss from RGBA quantization</li>
+                    </ul>
+                </div>
+
+                <div class="task-card">
+                    <h3><i class="fas fa-cube"></i> Dual Visualization Modes</h3>
+                    <ul>
+                        <li><strong>Texture mode</strong> — full-screen quad samples the R32F noise texture as grayscale</li>
+                        <li><strong>Surface mode</strong> — a 200×200 plane mesh displaces vertices along local Z using noise height values, forming 3D terrain</li>
+                        <li>Spectator camera (WASD + mouse drag) for exploring the surface in real time</li>
+                        <li>ImGui sliders for area scale, height scale, stack/slice density, tiling scale, and Z animation depth</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Demo -->
+        <div class="item-section">
+            <h2><i class="fas fa-play-circle"></i> Live Demo</h2>
+            <p style="font-size:0.9rem;opacity:0.7;margin-bottom:1em;">
+                <i class="fas fa-info-circle"></i>
+                Noise is generated entirely on the GPU — no loading time. Use the
+                <strong>Demo Settings</strong> panel to switch pattern type, view mode (Texture / Surface),
+                and tiling scale. In Surface mode, click and drag to look around, WASD to move.
+            </p>
+            <div class="demo-wrapper">
+                <iframe
+                    class="demo-frame"
+                    src="../webgl/D07GradientNoise/graphics_fun.html?start=gradient"
+                    title="Gradient Noise Live Demo"
+                    sandbox="allow-scripts allow-same-origin">
+                    Your browser does not support iframes.
+                </iframe>
+            </div>
+            <div class="demo-actions">
+                <a href="../webgl/D07GradientNoise/graphics_fun.html?start=gradient" target="_blank" rel="noopener" class="btn">
+                    <i class="fas fa-external-link-alt"></i>&nbsp; Open in New Tab
+                </a>
+                <a href="../index.html#projects" class="btn" style="background:transparent;color:var(--clr-accent);border:2px solid var(--clr-accent);">
+                    ← Back to Projects
+                </a>
+            </div>
+        </div>
+
+        <!-- Challenge & Lesson -->
+        <div class="item-section">
+            <h2><i class="fas fa-lightbulb"></i> Challenge &amp; Reflection</h2>
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — Seamless Tiling</h3>
+                    <p>
+                        Making the noise tile seamlessly at any display scale was the trickiest constraint.
+                        The key insight: noise is periodic with period equal to the permutation table size (64).
+                        By mapping texture coordinates [0, 1] to noise input [0, 64], the noise completes
+                        exactly one period across the texture — so it tiles perfectly at any integer or
+                        fractional display scale without any special border handling.
+                    </p>
+                </div>
+
+                <div class="challenge-card">
+                    <h3><i class="fas fa-exclamation-circle"></i> Challenge — R32F Framebuffer on WebGL</h3>
+                    <p>
+                        Supporting both desktop OpenGL and WebGL required careful branching in
+                        <code>LoadAsFormat()</code>. <code>TexStorage2D</code> is available on GL 4.2+
+                        and WebGL2, but older desktop drivers require <code>TexImage2D</code> with the
+                        correct pixel format / type pair for each internal format
+                        (e.g. <code>GL_RED / GL_FLOAT</code> for <code>R32F</code>).
+                        Getting these combinations wrong produced silent black output with no GL error.
+                    </p>
+                </div>
+
+                <div class="challenge-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Lesson — GPU vs CPU Noise</h3>
+                    <p>
+                        Moving from CPU-side noise (Value Noise assignment) to GPU-side evaluation was a
+                        significant leap in scalability. The fragment shader evaluates noise independently
+                        per pixel in parallel, so a 1024×1024 noise texture generates in a single draw call
+                        regardless of resolution. There is no texture upload cost, and the Z slider animates
+                        through 3D noise slices with zero latency.
+                    </p>
+                </div>
+
+                <div class="challenge-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Lesson — Gradient vs Value Noise</h3>
+                    <p>
+                        Value noise assigns random scalars to lattice points and interpolates between them,
+                        which tends to produce a blocky, axis-aligned look. Gradient noise assigns random
+                        <em>direction vectors</em> instead and computes dot products with offset vectors —
+                        producing smoother, more natural-looking results. The Improved Perlin version
+                        further restricts gradients to 12 fixed directions, eliminating axis-aligned bias
+                        and improving visual quality.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a href="mailto:byeonjeonghun93@gmail.com" class="footer__link">byeonjeonghun93@gmail.com</a>
+        <ul class="social-list">
+            <li class="social-list__item">
+                <a class="social-list__link" href="https://linkedin.com/in/mylinkedinid">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </li>
+            <li class="social-list__item">
+                <a class="social-list__link" href="https://github.com/JeonghunByeon">
+                    <i class="fab fa-github"></i>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script src="../js/index.js"></script>
+</body>
+
+</html>
